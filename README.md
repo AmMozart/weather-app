@@ -12,3 +12,5 @@ default param:
 
 Request API looks like that:
 http://api.openweathermap.org/data/2.5/forecast/daily?q=Moscow,RU&mode=json&units=metric&cnt=3&APPID=325d99ea2e22daeef5ec93a29f623c0e
+
+!Иллюстрация к проекту(https://github.com/AmMozart/weather-app/raw/master/public/preview.png)
