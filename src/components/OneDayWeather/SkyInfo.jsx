@@ -14,10 +14,12 @@ function SkyInfo({ sky }) {
     (sky.match(/^03/) && "Облачно") ||
     (sky.match(/^04/) && "Облачно") ||
     (sky.match(/^09/) && "Дождь") ||
-    (sky.match(/^11/) && "Слабый дождь") ||
+    (sky.match(/^10/) && "Слабый дождь") ||
+    (sky.match(/^11/) && "Дождь с Грозой") ||
     (sky.match(/^13/) && "Снег")
 
-  let image = images.filter((image) => image.match(new RegExp(sky)) ? true : false)
+  let image = images.filter((image) => image.match(new RegExp(sky + '.*.png$')) ? true : false)
+
   return (
     <div className={style.info}>
       <img className='icon' src={image} alt="" />

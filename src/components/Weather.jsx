@@ -1,25 +1,37 @@
-import React from 'react';
-import style from './Weather.module.css';
+import React, { useState } from 'react'
+import style from './Weather.module.css'
 import OneDayWeather from './OneDayWeather/OneDayWeather'
+import OneDayDetails from './OneDayWeather/OneDayDetails'
 
-function Weather({ WeatherData }) {
+function Weather({ weatherData }) {
+  let [date, setDate] = useState(null)
+
+  let displayDetails = (value) => {
+    setDate(value)
+  }
+
+  let formatDate = (date) => {
+    let newDate = new Date(date * 1000)
+    let day = newDate.getDate()
+    let month = newDate.getMonth() + 1
+    let year = newDate.getFullYear()
+
+    return `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`
+  }
+  let index = weatherData.reduce((result, elem, i) => {
+    result = (formatDate(elem.data.dt) === date) ? i : result
+    return result
+  }, 0)
 
   return (
     <div className={style.generalBlock}>
       <div className={style.weather}>
-        <h1 className={style.title}>Погода в Москве на 3 дня</h1>
+        <h1 className={style.title}>Погода в Москве</h1>
         <div className={style.containerDay}>
-          <OneDayWeather title="Сегодня" temp={WeatherData[0].temp}
-            humidity={WeatherData[0].humidity} pressure={WeatherData[0].pressure}
-            windSpeed={WeatherData[0].wind} icon={WeatherData[0].icon} date={WeatherData[0].date} />
-
-          <OneDayWeather title="Завтра" temp={WeatherData[1].temp}
-            humidity={WeatherData[1].humidity} pressure={WeatherData[1].pressure}
-            windSpeed={WeatherData[1].wind} icon={WeatherData[1].icon} date={WeatherData[1].date} />
-
-          <OneDayWeather title="Послезавтра" temp={WeatherData[2].temp}
-            humidity={WeatherData[2].humidity} pressure={WeatherData[2].pressure}
-            windSpeed={WeatherData[2].wind} icon={WeatherData[2].icon} date={WeatherData[2].date} />
+          <OneDayWeather title="Сегодня" weatherData={weatherData[0]} display={date} displayDetails={displayDetails} />
+          <OneDayWeather title="Завтра" weatherData={weatherData[1]} display={date} displayDetails={displayDetails} />
+          <OneDayWeather title="Послезавтра" weatherData={weatherData[2]} display={date} displayDetails={displayDetails} />
+          <OneDayDetails i={index} date={date} displayDetails={displayDetails} weatherData={weatherData} />
         </div>
       </div>
       <div className={style.footer}>

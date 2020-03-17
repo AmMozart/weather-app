@@ -1,11 +1,12 @@
 export default class WeatherData {
-  constructor(temp = 0, humidity = 0, wind = 0, pressure = 0, icon = '04d', date = new Date()) {
-    this.temp = temp
-    this.humidity = humidity
-    this.wind = wind
-    this.pressure = pressure
-    this.icon = icon
-    this.date = date
+  constructor(data) {
+    this.data = data
+    this.temp = data.temp.day
+    this.humidity = data.humidity
+    this.wind = data.speed
+    this.pressure = data.pressure
+    this.icon = data.weather[0].icon
+    this.date = data.dt
   }
   get temp() {
     return this._temp

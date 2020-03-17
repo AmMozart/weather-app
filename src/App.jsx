@@ -6,17 +6,18 @@ import WeatherData from './weatherAPI/WeatherData'
 
 
 let weatherStation = new WeatherStation()
-const wd = new WeatherData();
-
+// const wd = new WeatherData();
+let result = true
 function App() {
-  const [weatherData, setWeatherData] = useState([wd, wd, wd])
+  const [weatherData, setWeatherData] = useState([{}, {}, {}])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     weatherStation.getWeatherData()
       .then((dataArr) => {
         if (dataArr) {
           setWeatherData(dataArr)
-          console.log(weatherData)
+          setLoading(false)
         }
         else {
           console.log("Не удалось получить данные о погоде!")
@@ -24,11 +25,19 @@ function App() {
       })
   }, [])
 
-  return (
-    <div className={style.weather}>
-      <Weather WeatherData={weatherData} />
-    </div>
-  );
+  if (loading) {
+    return (
+      <div className={style.weather}>
+        <h2>Loading</h2>
+      </div>
+    );
+  } else {
+    return (
+      <div className={style.weather}>
+        <Weather weatherData={weatherData} />
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -1,32 +1,34 @@
-.info {
+.details {
   background: #1a1a1a;
   width: 100%;
   height: 100%;
   border-radius: 30px;
   opacity: 0.85;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   flex-direction: column;
   align-items: center;
   border: 1px solid rgb(117, 117, 117);
+  font-size: 1.02em;
 }
 
-.title {
-  margin: 0;
-  padding: 0;
-}
-
-.oneDayWeather {
-  width: 29%;
+.oneDayDetails {
+  width: 95.8%;
   height: 90%;
   margin: 0 auto;
 }
 
-.info:hover {
+.spanData {
+  color: rgb(255, 119, 0);
+  font-size: 1.06em;
+  
+}
+
+.details:hover {
   background: rgb(44, 44, 44);
 }
 
-.info:active {
+.details:active {
   background: rgb(68, 68, 68);
   border: 1px solid #fff
 }
