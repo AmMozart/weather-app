@@ -1,44 +1,41 @@
-import WeatherData from './WeatherData'
+import WeatherData from "./WeatherData";
 
 let weatherConfig = {
   city: "Moscow",
-  country: 'RU',
-  mode: 'json',
-  units: 'metric',
+  country: "RU",
+  mode: "json",
+  units: "metric",
   count: 3,
-  APPID: '325d99ea2e22daeef5ec93a29f623c0e'
-}
+  APPID: "325d99ea2e22daeef5ec93a29f623c0e",
+};
 
-export default class WeatherStation {
-  constructor(city = 'Moscow') {
+class WeatherStation {
+  constructor(city = "Moscow") {
     this.weatherConfig = {
       ...weatherConfig,
-      city
-    }
+      city,
+    };
   }
   _getUrl() {
-    return `http://api.openweathermap.org/data/2.5/forecast/daily?` +
+    return (
+      `http://api.openweathermap.org/data/2.5/forecast/daily?` +
       `q=${this.weatherConfig.city},${this.weatherConfig.country}&` +
       `mode=${this.weatherConfig.mode}&units=${this.weatherConfig.units}&` +
       `cnt=${this.weatherConfig.count}&APPID=${this.weatherConfig.APPID}`
+    );
   }
 
   async getWeatherData() {
-    const resp = await fetch(this._getUrl(), {})
+    const resp = await fetch(this._getUrl(), {});
     if (resp.ok) {
-      return await resp.json()
+      return await resp
+        .json()
         .then((value) => value.list)
         .then((value) => {
-          return value.map((data) =>
-            new WeatherData(data))
-          // new WeatherData(
-          //   data.temp.day,
-          //   data.humidity,
-          //   data.speed,
-          //   data.pressure,
-          //   data.weather[0].icon,
-          //   data.dt))
-        })
+          return value.map((data) => new WeatherData(data));
+        });
     }
   }
 }
+
+export default new WeatherStation();
