@@ -18,7 +18,7 @@ class WeatherStation {
   }
   _getUrl() {
     return (
-      `http://api.openweathermap.org/data/2.5/forecast/daily?` +
+      `https://api.openweathermap.org/data/2.5/forecast/daily?` +
       `q=${this.weatherConfig.city},${this.weatherConfig.country}&` +
       `mode=${this.weatherConfig.mode}&units=${this.weatherConfig.units}&` +
       `cnt=${this.weatherConfig.count}&APPID=${this.weatherConfig.APPID}`
